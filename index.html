@@ -25,10 +25,21 @@
       }
     </style>
     
-    <div class="responsive-iframe-container">
-      <!-- Embed Google Looker Studio Dashboard -->
-      <iframe width="100%" height="600" src="https://lookerstudio.google.com/embed/reporting/38fbcc26-9388-4176-a521-cb7246a3e376/page/tdxFF" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div class="responsive-iframe-container" id="iframe-container">
+      <!-- iframe will be inserted here via JavaScript -->
     </div>
+  
+    <script>
+      fetch('config.json')
+        .then(response => response.json())
+        .then(config => {
+          const iframe = document.createElement('iframe');
+          iframe.src = config.lookerReportUrl;
+          iframe.allowFullscreen = true;
+          document.getElementById('iframe-container').appendChild(iframe);
+        })
+        .catch(error => console.error('Error loading config:', error));
+    </script>
     
     
 
