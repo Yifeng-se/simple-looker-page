@@ -12,7 +12,7 @@
       .responsive-iframe-container {
         position: relative;
         width: 100%;
-        padding-top: 141.42%; /* 720 / 1280 = 0.5625 --> 56.25% for 16:9, 141% for 9:16 */
+        height: 100vh;
       }
     
       .responsive-iframe-container iframe {
@@ -54,5 +54,26 @@
       });
     </script>
 
+  
+<div class="commentbox"></div>
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>
+  fetch('config.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to load config.json: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(config => {
+      if (config.commentBoxId) {
+        // Initialize commentBox with the ID from config.json
+        commentBox(config.commentBoxId);
+      } else {
+        console.error('commentBoxId is missing in config.json');
+      }
+    })
+    .catch(error => console.error('Error initializing commentBox:', error));
+</script>
 </body>
 </html>
